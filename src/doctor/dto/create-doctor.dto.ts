@@ -1,6 +1,26 @@
+import {ApiProperty} from '@nestjs/swagger';
 export class CreateDoctorDto {
+    @ApiProperty({
+        description: 'Имя доктора',
+        example: 'Максим'
+    })
     name: string;
+
+    @ApiProperty({
+        description: 'Специальность доктора',
+        example: 'Терапевт'
+    })
     spec: string;
-    slots?: number[];
+
+    @ApiProperty({
+        description: 'Записи доктора',
+        example: [],
+    })
+    slots?: string[];
+
+    @ApiProperty({
+        description: 'Пароль доктора',
+        example: 'password'
+    })
     password: string;
 }

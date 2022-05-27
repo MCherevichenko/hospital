@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-
+@Entity({ name: 'doctor', orderBy: { id_doctor: 'ASC' } })
 export class DoctorEntity {
     @ApiProperty({
         description: 'ID доктора',
@@ -31,8 +31,8 @@ export class DoctorEntity {
         description: 'Записи на прием',
         required: false
     })
-    @Column("simple-array")
-    slots?: number[];
+    @Column({type:'simple-array'})
+    slots: string[];
 
     @ApiProperty({
         description: 'Пароль',

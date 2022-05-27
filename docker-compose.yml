@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    image: node:14-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    networks:
+      - my-network
+  database: 
+    image: postgres:latest
+    volumes:
+      - db-data:/var/lib/postgres
+    env_file: .env
+
+networks:
+  my-network:
+
+volumes:
+  db-data:

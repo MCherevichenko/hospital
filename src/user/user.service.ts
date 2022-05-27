@@ -26,7 +26,11 @@ export class UserService {
 
   public async findAll() {
     try {
-      return await this.usersRepository.createQueryBuilder().getRawMany();
+      return await this.usersRepository.createQueryBuilder('u').select([
+        'u.id_user as id_user',
+        'u.phone as phone',
+        'u.name as name'
+      ]).getRawMany();
     } catch (error) {
       throw new HttpException(
         {
