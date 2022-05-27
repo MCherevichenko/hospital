@@ -7,9 +7,12 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import { DoctorModule } from './doctor/doctor.module';
 import { UserEntity } from './user/entities/user.entity';
 import { DoctorEntity } from './doctor/entities/doctor.entity';
+import { ScheduleModule } from '@nestjs/schedule';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports:[
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({ envFilePath: '.env' }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -23,6 +26,7 @@ import { DoctorEntity } from './doctor/entities/doctor.entity';
     }),
     UserModule,
     DoctorModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [

@@ -5,10 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DoctorEntity } from './entities/doctor.entity';
 import { AppointmentDto } from './dto/appointment.dto';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class DoctorService {
-  constructor(@InjectRepository(DoctorEntity) private doctorsRepository: Repository<DoctorEntity>) { }
+  constructor(@InjectRepository(DoctorEntity) private doctorsRepository: Repository<DoctorEntity>,
+    @InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>
+  ) { }
 
   public async create(createDoctorDto: CreateDoctorDto) {
     try {
@@ -107,6 +110,7 @@ export class DoctorService {
           })
           new_slots.push(String(new_date.getTime()))
           await this.doctorsRepository.createQueryBuilder().update(DoctorEntity).set({ slots: new_slots }).where('id_doctor = :id', { id }).execute();
+          await this.usersRepository.createQueryBuilder().update(UserEntity).set({ id_doctor: id }).where('id_user = :id', {id: appointment.id_user}).execute();
         } else {
           await this.doctorsRepository.createQueryBuilder().update(DoctorEntity).set({ slots: [String(new_date.getTime())] }).where('id_doctor = :id', { id }).execute();
         }

@@ -37,4 +37,22 @@ export class UserEntity {
         select: false,
     })
     password: string;
+
+    @ApiProperty({
+        description: 'Дата записи',
+    })
+    @Column({
+        type: 'varchar',
+        nullable: true
+    })
+    date?: string;
+
+    @ApiProperty({
+        description: 'Дата записи',
+    })
+    @Column({
+        type: 'int4',
+        nullable: true
+    })
+    id_doctor?: number;
 }
