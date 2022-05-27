@@ -5,6 +5,8 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { DoctorModule } from './doctor/doctor.module';
+import { UserEntity } from './user/entities/user.entity';
+import { DoctorEntity } from './doctor/entities/doctor.entity';
 
 @Module({
   imports:[
@@ -16,7 +18,7 @@ import { DoctorModule } from './doctor/doctor.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE_NAME,
-      entities: [],
+      entities: [UserEntity, DoctorEntity],
       synchronize: true,
     }),
     UserModule,

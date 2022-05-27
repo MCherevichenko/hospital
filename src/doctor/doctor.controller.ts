@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { DoctorService } from './doctor.service';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
@@ -8,6 +9,7 @@ export class DoctorController {
   constructor(private readonly doctorService: DoctorService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Создание доктора' })
   create(@Body() createDoctorDto: CreateDoctorDto) {
     return this.doctorService.create(createDoctorDto);
   }

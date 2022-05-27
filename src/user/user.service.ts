@@ -50,12 +50,11 @@ export class UserService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
-
   }
 
   public async update(id: number, updateUserDto: UpdateUserDto) {
     try {
-      const update_user = await getManager().createQueryBuilder().update(UserEntity).set({ phone: updateUserDto.phone, name: updateUserDto.name })
+      const update_user = await getManager().createQueryBuilder().update(UserEntity).set({ phone: updateUserDto.phone, name: updateUserDto.name }).where('id_doctor = :id', {id}).execute();
       return { message: 'Пользователь обновлен', update_user };
     } catch (error) {
       throw new HttpException(
@@ -66,7 +65,6 @@ export class UserService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
-
   }
 
   public async remove(id: number) {
