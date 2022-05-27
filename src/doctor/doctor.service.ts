@@ -110,7 +110,7 @@ export class DoctorService {
           })
           new_slots.push(String(new_date.getTime()))
           await this.doctorsRepository.createQueryBuilder().update(DoctorEntity).set({ slots: new_slots }).where('id_doctor = :id', { id }).execute();
-          await this.usersRepository.createQueryBuilder().update(UserEntity).set({ id_doctor: id }).where('id_user = :id', {id: appointment.id_user}).execute();
+          await this.usersRepository.createQueryBuilder().update(UserEntity).set({ id_doctor: id }).where('id_user = :id', { id: appointment.id_user }).execute();
         } else {
           await this.doctorsRepository.createQueryBuilder().update(DoctorEntity).set({ slots: [String(new_date.getTime())] }).where('id_doctor = :id', { id }).execute();
         }

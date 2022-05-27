@@ -33,4 +33,9 @@ import { AuthModule } from './auth/auth.module';
     AppService,
   ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log(process.env);
+    
+  }
+}
