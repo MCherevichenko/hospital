@@ -13,12 +13,7 @@ services:
       - ./:/app
     networks:
       - my-network
-    environment:
-      - POSTGRES_USER=maks
-      - POSTGRES_PASSWORD=maks
-      - POSTGRES_DB=hospital
-      - POSTGRES_HOST=database
-      - POSTGRES_PORT=5432
+    
   database:
     image: postgres:latest
     volumes:
@@ -27,9 +22,6 @@ services:
       - .env
     networks:
       - my-network
-    ports:
-      - '5432:5432'
-
 networks:
   my-network:
 

@@ -122,4 +122,8 @@ export class UserService {
       }
     }
   }
+
+  public async findByName(name: string){
+    return await this.usersRepository.findOne({where: {username: name}});
+  }
 }
