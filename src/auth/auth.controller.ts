@@ -1,9 +1,7 @@
 import {
   Body,
   Controller,
-  Get,
-  Post,
-  Request,
+  Post
 } from '@nestjs/common';
 import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { AuthDto } from './auth-dto';

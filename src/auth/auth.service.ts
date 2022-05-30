@@ -18,7 +18,7 @@ export class AuthService {
         .where('user.name =:username', { username })
         .addSelect('user.password')
         .getOne();
-      if (user && user.password === password) {
+      if (user?.password === password) {
         const { password, ...userInfo } = user;
         return userInfo;
       }
