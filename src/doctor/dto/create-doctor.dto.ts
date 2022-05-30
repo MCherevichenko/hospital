@@ -4,7 +4,7 @@ export class CreateDoctorDto {
         description: 'Имя доктора',
         example: 'Максим'
     })
-    name: string;
+    username: string;
 
     @ApiProperty({
         description: 'Специальность доктора',

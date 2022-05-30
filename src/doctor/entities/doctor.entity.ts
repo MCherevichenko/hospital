@@ -16,7 +16,7 @@ export class DoctorEntity {
     @Column({
         type: 'varchar'
     })
-    name: string;
+    username: string;
 
     @ApiProperty({
         description: 'Специальность доктора',

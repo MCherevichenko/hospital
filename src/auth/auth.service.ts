@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -12,12 +12,14 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string) {
+
     try {
       const user = await this.authRepository
         .createQueryBuilder('user')
-        .where('user.name =:username', { username })
+        .where('user.username =:username', { username })
         .addSelect('user.password')
         .getOne();
+        
       if (user?.password === password) {
         const { password, ...userInfo } = user;
         return userInfo;
@@ -28,10 +30,20 @@ export class AuthService {
     }
   }
 
-  login(user) {
-    const payload = { username: user.name, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+  async login(user) {
+    
+      
+      const isValid = await this.validateUser(user.username, user.password)
+
+      if (isValid) {
+
+        const payload = { username: user.username, sub: user.id };
+    
+        return {
+          access_token: this.jwtService.sign(payload),
+        };
+      }
+      throw new UnauthorizedException('No auth')
+   
   }
 }

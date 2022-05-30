@@ -21,5 +21,5 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
         description: 'Имя пользователя',
         example: "Максим"
     })
-    name?: string;
+    username?: string;
 }

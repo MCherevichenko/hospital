@@ -36,7 +36,8 @@ export class UserService {
       return await this.usersRepository.createQueryBuilder('u').select([
         'u.id_user as id_user',
         'u.phone as phone',
-        'u.name as name'
+        'u.username as username',
+        'u.password as password'
       ]).getRawMany();
     } catch (error) {
       throw new HttpException(
@@ -65,7 +66,7 @@ export class UserService {
 
   public async update(id: number, updateUserDto: UpdateUserDto) {
     try {
-      const update_user = await this.usersRepository.createQueryBuilder().update(UserEntity).set({ phone: updateUserDto.phone, name: updateUserDto.name }).where('id_doctor = :id', { id }).execute();
+      const update_user = await this.usersRepository.createQueryBuilder().update(UserEntity).set({ phone: updateUserDto.phone, username: updateUserDto.username }).where('id_user = :id', { id }).execute();
       return { message: 'Пользователь обновлен', update_user };
     } catch (error) {
       throw new HttpException(
@@ -97,13 +98,13 @@ export class UserService {
     const users = await this.usersRepository.createQueryBuilder('u').select([
       'u.id_user as id_user',
       'u.phone as phone',
-      'u.name as name',
+      'u.username as username',
       'u.id_doctor as id_doctor'
     ]).getRawMany();
 
     const doctors = await this.doctorsRepository.createQueryBuilder('d').select([
       'd.id_doctor as id_doctor',
-      'd.name as name',
+      'd.username as username',
       'd.spec as spec',
       'd.slots as slots',
       'd.password as password']).getRawMany();
@@ -114,7 +115,7 @@ export class UserService {
           doctors[doctor_key].slots.forEach(item => {
             const current_date = new Date();
             if (current_date.getTime() > new Date(users[user_key].date).getTime()-time) {
-              this.logger.log(`${current_date}| Hi ${users[user_key].name}! We remind you that you have an appointment with ${ doctors[doctor_key].spec } tomorrow at ${ users[user_key].date }!`);
+              this.logger.log(`${current_date}| Hi ${users[user_key].username}! We remind you that you have an appointment with ${ doctors[doctor_key].spec } tomorrow at ${ users[user_key].date }!`);
             }
           })
         }

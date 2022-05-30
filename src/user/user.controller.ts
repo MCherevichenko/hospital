@@ -34,7 +34,7 @@ export class UserController {
   @ApiOperation({ summary: 'Обновление пользователя' })
   @ApiBody({ type: UpdateUserDto, description: 'Новые данные для пользователя' })
   update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')

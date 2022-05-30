@@ -10,7 +10,7 @@ export class CreateUserDto {
         description: 'Имя пользователя',
         example: "Максим"
     })
-    name: string;
+    username: string;
 
     @ApiProperty({
         description: 'Пароль пользователя',

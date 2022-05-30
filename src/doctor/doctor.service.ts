@@ -33,7 +33,7 @@ export class DoctorService {
       return await this.doctorsRepository.createQueryBuilder('d')
         .select([
           'd.id_doctor as id_doctor',
-          'd.name as name',
+          'd.username as username',
           'd.spec as spec',
           'd.slots as slots',
           'd.password as password']).getRawMany();
@@ -64,8 +64,8 @@ export class DoctorService {
 
   public async update(id: number, updateDoctorDto: UpdateDoctorDto) {
     try {
-      const update_user = await this.doctorsRepository.createQueryBuilder().update(DoctorEntity).set({ name: updateDoctorDto.name, spec: updateDoctorDto.spec, slots: updateDoctorDto.slots })
-        .where('id_doctor = :id_doctor', { id }).execute();
+      const update_user = await this.doctorsRepository.createQueryBuilder().update(DoctorEntity).set({ username: updateDoctorDto.username, spec: updateDoctorDto.spec, slots: updateDoctorDto.slots })
+        .where('id_doctor = :id', { id }).execute();
       return { message: 'Пользователь обновлен', update_user };
     } catch (error) {
       throw new HttpException(

@@ -15,7 +15,7 @@ export class UpdateDoctorDto extends PartialType(CreateDoctorDto) {
         description: 'Имя доктора',
         example: 'Артур'
     })
-    name?: string;
+    username?: string;
 
     @ApiProperty({
         description: 'Специальность доктора',

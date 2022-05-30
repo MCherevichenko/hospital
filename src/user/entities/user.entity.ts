@@ -26,7 +26,7 @@ export class UserEntity {
     @Column({
         type: 'varchar',
     })
-    name: string;
+    username: string;
 
     @ApiProperty({
         description: 'Пароль',

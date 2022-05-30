@@ -5,6 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import {UserEntity} from "../user/entities/user.entity";
 import {JwtStrategy} from "./jwt.strategy";
+import { LocalStrategy } from './local.stratetgy';
 
 export const jwtConstants = {
   secret: 'secretKey',
@@ -12,7 +13,7 @@ export const jwtConstants = {
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, LocalStrategy],
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
