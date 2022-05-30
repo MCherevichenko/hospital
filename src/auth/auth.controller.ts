@@ -18,7 +18,6 @@ export class AuthController {
   @UseGuards(LocalStrategy)
   @Post('login')
   async login(@Request() req, @Body() body) {
-    // console.log('udasdas', req);
     return this.authService.login(body);
   }
 }

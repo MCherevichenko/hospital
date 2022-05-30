@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -26,21 +26,18 @@ export class AuthService {
       }
       return null;
     } catch (err) {
-      console.log('Ошибка при обращении к БД');
+      throw new HttpException('Нет доступа к бд', 500);
     }
   }
 
   async login(user) {
-    
-      
       const isValid = await this.validateUser(user.username, user.password)
-
       if (isValid) {
-
         const payload = { username: user.username, sub: user.id };
-    
         return {
-          access_token: this.jwtService.sign(payload),
+          access_token: this.jwtService.sign(payload, {
+            secret:process.env.JWT_SECRET
+          }),
         };
       }
       throw new UnauthorizedException('No auth')

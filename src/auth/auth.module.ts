@@ -7,17 +7,13 @@ import {UserEntity} from "../user/entities/user.entity";
 import {JwtStrategy} from "./jwt.strategy";
 import { LocalStrategy } from './local.stratetgy';
 
-export const jwtConstants = {
-  secret: 'secretKey',
-};
-
 @Module({
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, LocalStrategy],
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
-      secret: jwtConstants.secret,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1h' },
     }),
   ],
