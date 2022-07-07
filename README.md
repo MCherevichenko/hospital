@@ -11,3 +11,4 @@
 5)Go to http://localhost:3000/docs for using swagger  
 
 6)Use name/password - admin/admin for auth.  
+asdasdasd
